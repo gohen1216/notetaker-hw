@@ -41,9 +41,15 @@ app.post('/api/notes', (req, res) => {
 
   
   console.log(newNote);
+  fs.readFile("./db/db.json",{encoding:"utf-8"},function(err,notesjson){
+    const notes = JSON.parse(notesjson);
+    notes.push(newNote);
+    fs.writeFile("./db/db.json",JSON.stringify(notes),function(err,notesjson){
+       res.json(newNote);
+        })
+    })
   
-  notes.push(newNote);
-  res.json(newNote);
+ 
 });
 
 // Starts the server to begin listening
