@@ -2,6 +2,7 @@
 
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 // Sets up the Express App
 
@@ -22,7 +23,13 @@ app.use(express.static("public"))
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')));
 
 // Displays all notes
-app.get('/api/notes', (req, res) => res.json(true));
+app.get('/api/notes', (req, res) => {
+    fs.readFile("./db/db.json",{encoding:"utf-8"},function(err,notesjson){
+    res.json(JSON.parse(notesjson));
+    })
+    
+
+});
 
 
 
@@ -34,7 +41,7 @@ app.post('/api/notes', (req, res) => {
 
   
   console.log(newNote);
-
+  
   notes.push(newNote);
   res.json(newNote);
 });
