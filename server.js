@@ -54,4 +54,4 @@ app.post('/api/notes', (req, res) => {
 
 // Starts the server to begin listening
 
-app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
+app.listen(process.env.PORT||PORT, () => console.log(`App listening on PORT ${PORT}`));
